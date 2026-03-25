@@ -6,6 +6,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('main.urls', namespace='main'))
 ]
 
 # Необхідно для аналогової роботи з продакшином медіа і статики на дебазі

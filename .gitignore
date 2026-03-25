@@ -5,6 +5,9 @@ __pycache__/
 .vscode
 .idea
 .env
+.oldenv
+django.log
+sequrity.log
 
 db.sqlite3
 media/
