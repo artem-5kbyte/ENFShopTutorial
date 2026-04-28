@@ -41,9 +41,9 @@ class CatalogView(TemplateView):
     FILTER_MAPPING = {
         #Якщо людина щось вибирає воно перехоплюється і виконується фільтрація
         'color': lambda queryset, value: queryset.filter(color__iexact=value), # queryset масив з товарами value значення яке задав користувач
-        'min_price': lambda queryset, value: queryset.filter(price_gte=value),
-        'max_price': lambda queryset, value: queryset.filter(price_lte=value),
-        'size': lambda queryset, value: queryset.filter(product_sizes__size_name=value),
+        'min_price': lambda queryset, value: queryset.filter(price__gte=value),
+        'max_price': lambda queryset, value: queryset.filter(price__lte=value),
+        'size': lambda queryset, value: queryset.filter(product_sizes__size__name=value),
     }
 
     def get_context_data(self, **kwargs):
@@ -101,7 +101,7 @@ class CatalogView(TemplateView):
         context = self.get_context_data(**kwargs) # Записуємо в контекст дані з сторінки і загального контексту
         if request.headers.get('HX-Request'): # Якщо в заголовках htmx запит
             if context.get('show_search'): # якщо в контексті є дані чи є параметр в посиланні повертаємо відповідні шаблони
-                return TemplateResponse(request, 'main/search_input', context) #
+                return TemplateResponse(request, 'main/search_input.html', context) #
             elif context.get('reset_search'): #
                 return TemplateResponse(request, 'main/search_button.html', {}) #
             template = 'main/filter_modal.html' if request.GET.get('show_filters') == 'true' else 'main/catalog.html' #
